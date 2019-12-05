@@ -80,7 +80,7 @@ class BinaryClassificationProcessor(DataProcessor):
     def set_dataset(self, name, breakpoint):
         self.name = name
         self.breakpoint = datetime.strptime(breakpoint, '%Y-%m-%d')
-        tsv = pd.read_csv(os.path.join(self.data_dir, name), sep='\t')
+        tsv = pd.read_csv(os.path.join(self.data_dir, name), sep=',')
         self.train = tsv.loc[tsv['date'] < breakpoint]
         self.dev = tsv.loc[tsv['date'] >= breakpoint]
 

@@ -32,7 +32,7 @@ CACHE_DIR = '../cache/'
 
 # The maximum total input sequence length after WordPiece tokenization.
 # Sequences longer than this will be truncated, and sequences shorter than this will be padded.
-MAX_SEQ_LENGTH = 140
+MAX_SEQ_LENGTH = 48
 
 TRAIN_BATCH_SIZE = 24
 EVAL_BATCH_SIZE = 8
