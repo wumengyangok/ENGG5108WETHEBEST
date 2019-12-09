@@ -5,11 +5,13 @@ If you are having trouble multiprocessing inside Notebooks, give this script a s
 import os
 import torch
 from tqdm import tqdm
-
 from multiprocessing import Pool, cpu_count
 import pickle
-from tools import *
-import convert_examples_to_features
+
+# locals
+from config import Config
+from input_example import InputExample, BinaryClassificationProcessor
+from input_features import InputFeatures, convert_example_to_feature
 
 # OPTIONAL: if you want to have more information on what's happening, activate the logger as follows
 import logging
@@ -68,7 +70,7 @@ if __name__ == '__main__':
     print('Preparing to convert {train_examples_len} examples..')
     print('Spawning {process_count} processes..')
     with Pool(process_count) as p:
-        train_features = list(tqdm(p.imap(convert_examples_to_features.convert_example_to_feature, train_examples_for_processing), total=train_examples_len))
+        train_features = list(tqdm(p.imap(convert_example_to_feature, train_examples_for_processing), total=train_examples_len))
 
     with open(os.path.join(OUTPUT_DIR, "aapl.pkl"), 'wb') as f:
         pickle.dump(train_features, f) 

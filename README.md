@@ -33,12 +33,15 @@ ENGG5108 course project
   * tweet/: related tweets for specific stocks
 * doc/: documents
 * src/
-  * BERT_m.ipynb: notebook for BERT training
-  * BERT.ipynb: original notebook for BERT training copied from **A Simple Guide On Using BERT for Binary Text Classification**
-  * data_to_tsv.ipynb: notebook for converting raw price and tweet data to tsv (can be opened as csv)
-  * converter.py: python script for converting tsv to BERT InputFeature
-  * tools.py: classes for converter.py
-  * convert_examples_to_feautres.py: classes for converter.py
+  * config.py: class for storing common configs
+  * input_example.py: InputExample class and related functions
+  * input_features.py: InputFeatures class and related functions
+  * **[training]** BERT_m.ipynb: notebook for BERT training
+  * **[training]** BERT.ipynb: original notebook for BERT training copied from **A Simple Guide On Using BERT for Binary Text Classification**
+  * **[training]** data_to_tsv.ipynb: notebook for converting raw price and tweet data to tsv (can be opened as csv)
+  * **[training] **converter.py: python script for converting tsv to BERT InputFeature
+  * **[prediction]** twitter.py: Twitter class for getting online tweets
+  * **[prediction]** predictor.ipynb: notebook for doing classification on tweets and predicts stock price (on progress)
 * twitter-cred/: credential files of accessing Twitter API
 
 ## Work distribution
