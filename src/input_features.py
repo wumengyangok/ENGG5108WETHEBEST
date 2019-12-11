@@ -45,7 +45,7 @@ def convert_example_to_feature(example_row):
             tokens_a = tokens_a[:(max_seq_length - 2)]
 
     tokens = ["[CLS]"] + tokens_a + ["[SEP]"]
-    print(tokens)
+    # print(tokens)
     segment_ids = [0] * len(tokens)
 
     if tokens_b:

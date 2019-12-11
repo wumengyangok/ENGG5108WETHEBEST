@@ -1,7 +1,7 @@
-#!/usr/bin/env python
+
 # coding: utf-8
 
-# In[1]:
+# In[2]:
 
 
 import os
@@ -9,13 +9,14 @@ import configparser
 from datetime import datetime
 import torch
 from twython import Twython
+import pandas as pd
 
 from config import Config
-from input_example import InputExample
+from input_example import InputExample, BinaryClassificationProcessor
 from input_features import InputFeatures, convert_example_to_feature
 
 
-# In[2]:
+# In[3]:
 
 
 # const
@@ -24,13 +25,14 @@ MAX_SEQ_LENGTH = 48
 OUTPUT_MODE = 'classification'
 
 
-# In[6]:
+# In[12]:
 
 
 class Twitter(object):
     
     def __init__(self, cred_dir = '../twitter-cred', cred_fname = CRED_FNAME):
         cred_fpath = os.path.join(cred_dir, cred_fname)
+        self.global_config = Config()
         print(f"Retrieve twitter credential: {cred_fpath}")
         if os.path.exists(cred_fpath):
             config = configparser.ConfigParser()
@@ -57,14 +59,33 @@ class Twitter(object):
         tweets = []
         results = self._twitter.search(q=query, until=to_date, count=count, lang='en')
         
-        to_date = datetime.strptime(to_date, "%Y-%m-%d")
-        from_date = datetime.strptime(from_date, "%Y-%m-%d")
+        #to_date = datetime.strptime(to_date, "%Y-%m-%d")
+        #from_date = datetime.strptime(from_date, "%Y-%m-%d")
         for i, result in enumerate(results['statuses']):
             tweet_date = datetime.strptime(result['created_at'], "%a %b %d %H:%M:%S %z %Y").replace(tzinfo=None)
             if tweet_date < from_date:
                 break
                 
             tweet_example = InputExample(i, result['text'], label=0) # set default label as 0
+            tweets.append(tweet_example)
+            
+        return tweets
+    
+    def get_offline_tweets(self, filename, from_date, to_date):
+        tweets = []
+        
+        #to_date = datetime.strptime(to_date, "%Y-%m-%d")
+        #from_date = datetime.strptime(from_date, "%Y-%m-%d")
+        data_dir = self.global_config.get_tsv_dir()
+        
+        tsv = pd.read_csv(os.path.join(data_dir, filename), sep=',')
+        tsv["datetime"] = pd.to_datetime(tsv["date"])
+        tar_df = tsv.loc[tsv["datetime"] >= from_date]
+        tar_df = tar_df.loc[tsv["datetime"] <= to_date]
+        results = tar_df['text'].tolist()
+        
+        for i, result in enumerate(results):
+            tweet_example = InputExample(i, result, label=0)
             tweets.append(tweet_example)
             
         return tweets
@@ -81,7 +102,7 @@ class Twitter(object):
         return features
 
 
-# In[9]:
+# In[ ]:
 
 
 def test_func():
@@ -90,8 +111,17 @@ def test_func():
     features = twitter.conv2features(examples)
 
 
-# In[10]:
+# In[13]:
 
 
-# test_func()
+def test_func_2():
+    twitter = Twitter()
+    examples = twitter.get_offline_tweets("aapl.tsv", "2016-01-01", "2016-01-10")
+    print(examples)
+
+
+# In[14]:
+
+
+# test_func_2()
 
