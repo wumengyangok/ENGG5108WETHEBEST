@@ -29,8 +29,8 @@ def convert_example_to_feature(example_row):
     # return example_row
     example, label_map, max_seq_length, tokenizer, output_mode = example_row
 
-    # print(example.text_a)
-    tokens_a = tokenizer.tokenize(example.text_a)
+    print(example.text_a)
+    tokens_a = tokenizer.tokenize(str(example.text_a))
 
     tokens_b = None
     if example.text_b:
