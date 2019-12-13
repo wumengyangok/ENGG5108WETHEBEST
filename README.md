@@ -7,10 +7,10 @@ ENGG5108 course project
 * Name: ωετhεbεsτ
 
 * Members:
-  * WONG Tsz Fung (1155077547)
-  * XIA Xin (1155116404）
-  * HUANG Ruiyang (1155130026)
-  * WU Mengyang (1155119011)
+  * WONG Tsz Fung
+  * XIA Xin
+  * HUANG Ruiyang
+  * WU Mengyang
 
 ## Plan
 
@@ -20,8 +20,8 @@ ENGG5108 course project
    2. Other pre-processing ? (Manual labelling of tweets, remove unwanted symbols)
    3. Prepare tweet data for BERT fine-tune (converter.py)
    4. May write a MapReduce program to do one of the task above to fulfill the project requirement
-3. BERT fine-tuning for stock market related tweets (BERT_m.ipynb)
-6. nltk.twitter streaming data for future prediction
+3. BERT fine-tuning for stock market related tweets
+6. Twython streaming data for future prediction
 5. Automatic script for getting new twitter data and perform prediction
 
 ## Files
@@ -31,25 +31,37 @@ ENGG5108 course project
   * tsv/: pre-processed tweet csv for specific stocks
   * price/: price data for specific stocks
   * tweet/: related tweets for specific stocks
+  
+* output/: fine-tune weight files ([download here](https://drive.google.com/file/d/1i37uI8FsnQX62vuyQt9gRLD8cqzHJ92s/view?usp=sharing))
+
 * doc/: documents
+
 * src/
-  * config.py: class for storing common configs
-  * input_example.py: InputExample class and related functions
-  * input_features.py: InputFeatures class and related functions
-  * **[training]** BERT_m.ipynb: notebook for BERT training
-  * **[training]** BERT.ipynb: original notebook for BERT training copied from **A Simple Guide On Using BERT for Binary Text Classification**
-  * **[training]** data_to_tsv.ipynb: notebook for converting raw price and tweet data to tsv (can be opened as csv)
-  * **[training] **converter.py: python script for converting tsv to BERT InputFeature
-  * **[prediction]** twitter.py: Twitter class for getting online tweets
-  * **[prediction]** predictor.ipynb: notebook for doing classification on tweets and predicts stock price (on progress)
-* twitter-cred/: credential files of accessing Twitter API
+  
+  * Common files
+    * config.py: class for storing common configs
+    * input_example.py: InputExample class and related functions
+    * input_features.py: InputFeatures class and related functions
+  * Twitter data loader
+    * twitter-cred/: credential files of accessing Twitter API
+    * twitter.ipynb: Twitter data loader (notebook version)
+    * twitter.py: Twitter data loader
+  
+  * Training system
+    * data_to_tsv.ipynb: Pre-processor (only notebook provided)
+    * converter.py: Converter
+    * trainer.ipynb: Trainer (only notebook provided)
+  * Predictor
+    * predictor.ipynb: Predictor (only notebook provided)
+  * Web visualization
+    * vision_new.html: read **result.js** (generated from predictor) and generates prediction chart
 
 ## Work distribution
 
-* Mengyang: BERT training and prediction
-* Ivan: Data preprocessing and Twitter streaming
-* Ruiyang: Visualization, mapreduce program, data labelling (possibly)
-* Xia xin: Report (Introduction, schedule, etc.), data labelling (possibly)
+* Mengyang: Proposal, Training system, Model fine-tuning, Final report, PowerPoint
+* Tsz Fung: Proposal, Training system, Twitter data loader, Predictor, Final report, PowerPoint, Video
+* Ruiyang: Proposal, Pre-processor, Web visualization, Final report, PowerPoint
+* Xia xin: Proposal, Project status report, Final report, PowerPoint
 
 ## Twitter
 
@@ -60,7 +72,7 @@ ENGG5108 course project
 * Stock price + related tweets dataset: https://github.com/ivangundampc/stocknet-dataset
 * Sentiment 140 (tweets with sentiment classification) dataset: https://www.kaggle.com/kazanova/sentiment140
 
-## Useful links
+## Reference
 
 * A Simple Guide On Using BERT for Binary Text Classification **(we mainly followed this guide)**: https://medium.com/swlh/a-simple-guide-on-using-bert-for-text-classification-bbf041ac8d04
 * Using the latest advancements in AI to predict stock market movements: https://github.com/borisbanushev/stockpredictionai
